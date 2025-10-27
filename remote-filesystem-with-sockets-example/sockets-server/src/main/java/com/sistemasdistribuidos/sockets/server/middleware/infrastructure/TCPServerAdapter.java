@@ -14,16 +14,15 @@ import java.net.Socket;
 
 /**
  * TCP server adapter that implements connection-oriented socket communication.
- * 
+ *
  * This adapter uses TCP/IP protocol to establish reliable, stream-based
- * connections with clients. It implements an iterative server model where
- * each client is handled sequentially.
- * 
- * Key characteristics:
- * - Connection-oriented: Establishes dedicated connection per client
- * - Reliable: Guarantees data delivery and ordering
- * - Stream-based: Data is read as a continuous stream
- * - Iterative: Handles one client at a time (not concurrent)
+ * connections with clients. It implements an iterative server model where each
+ * client is handled sequentially.
+ *
+ * Key characteristics: - Connection-oriented: Establishes dedicated connection
+ * per client - Reliable: Guarantees data delivery and ordering - Stream-based:
+ * Data is read as a continuous stream - Iterative: Handles one client at a time
+ * (not concurrent)
  *
  * @author mariovillacortagarcia
  */
@@ -36,25 +35,25 @@ public class TCPServerAdapter extends ServerPort {
 
     /**
      * Constructs a TCP server adapter bound to the specified port.
-     * 
+     *
      * @param port Port number to bind the server
      * @param useCase Use case to execute when data is received
      * @throws IOException If the server socket cannot be created or bound
      */
     public TCPServerAdapter(int port, UseCase useCase) throws IOException {
         super(port, useCase);
-        this.serverSocket = new ServerSocket(this.port);
+        serverSocket = new ServerSocket(this.port);
+        System.out.println(serverSocket);
     }
 
     /**
-     * Starts the TCP server in an infinite loop to accept and handle client connections.
-     * 
-     * This method blocks indefinitely and performs the following steps:
-     * 1. Waits for incoming client connections
-     * 2. Accepts the connection and creates a data socket
-     * 3. Reads data from the client
-     * 4. Executes the use case with the received data
-     * 5. Returns to step 1
+     * Starts the TCP server in an infinite loop to accept and handle client
+     * connections.
+     *
+     * This method blocks indefinitely and performs the following steps: 1.
+     * Waits for incoming client connections 2. Accepts the connection and
+     * creates a data socket 3. Reads data from the client 4. Executes the use
+     * case with the received data 5. Returns to step 1
      */
     @Override
     public void start() {
@@ -65,10 +64,10 @@ public class TCPServerAdapter extends ServerPort {
             try {
                 // 1. Connection socket acceptance
                 Socket dataSocket = serverSocket.accept();
-                System.out.printf(
-                        "[TCP] Connected data socket from %s:%d%n",
-                        dataSocket.getInetAddress().getHostAddress(),
-                        dataSocket.getPort()
+                System.out.println(
+                        "[TCP] Connected data socket from "
+                        + dataSocket.getInetAddress().getHostAddress() + ":"
+                        + dataSocket.getPort()
                 );
 
                 // 2. Data socket stream
@@ -81,18 +80,18 @@ public class TCPServerAdapter extends ServerPort {
     }
 
     /**
-     * Receives data from the connected client and executes the use case for each line.
-     * 
+     * Receives data from the connected client and executes the use case for
+     * each line.
+     *
      * This method reads the input stream line by line until the client closes
      * the connection (indicated by null). Each line is logged and processed
      * through the configured use case.
-     * 
+     *
      * @param dataSocket The socket connected to the client
      */
     private void receiveDataAndExecuteUseCase(Socket dataSocket) {
-        try (Socket socket = dataSocket;
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            
+        try (Socket socket = dataSocket; BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
             String data;
             while ((data = in.readLine()) != null) {
                 System.out.printf(
@@ -104,10 +103,13 @@ public class TCPServerAdapter extends ServerPort {
 
                 useCase.execute(data);
             }
-            
-            System.out.printf("[TCP] Client %s:%d disconnected%n", 
-                    socket.getInetAddress().getHostAddress(), 
-                    socket.getPort());
+
+            System.out.println(
+                    "[TCP] Client "
+                    + socket.getInetAddress().getHostAddress() + ":"
+                    + socket.getPort()
+                    + " disconnected"
+            );
 
         } catch (IOException e) {
             System.err.println("[TCP] Error reading from client: " + e.getMessage());

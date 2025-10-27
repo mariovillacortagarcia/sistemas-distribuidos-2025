@@ -28,7 +28,7 @@ public class SocketsServer {
     /**
      * Port on which the server will listen for incoming connections.
      */
-    private static final int PORT = 1234;
+    private static final int PORT = 55001;
 
     /**
      * Main method that starts the socket server.

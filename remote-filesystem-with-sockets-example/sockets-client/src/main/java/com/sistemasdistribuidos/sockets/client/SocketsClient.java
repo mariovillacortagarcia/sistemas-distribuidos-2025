@@ -32,7 +32,7 @@ public class SocketsClient {
     /**
      * Server port to connect to.
      */
-    private static final int PORT = 1234;
+    private static final int PORT = 55001;
 
     /**
      * Main method that starts the socket client.
