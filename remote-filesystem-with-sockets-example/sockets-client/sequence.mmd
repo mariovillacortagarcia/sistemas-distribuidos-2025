@@ -1,0 +1,63 @@
+---
+config:
+  theme: default
+title: Sockets Client - Execution Flow
+---
+
+sequenceDiagram
+    autonumber
+    actor User
+    participant Main as SocketsClient
+    
+    box rgb(220, 240, 255) Middleware Layer
+        participant ClientAdapter as TCPClientAdapter
+        participant Network
+    end
+    
+    box rgb(255, 245, 220) App Layer - Application
+        participant UseCase as SendFileUseCase
+    end
+    
+    box rgb(255, 235, 220) App Layer - Infrastructure
+        participant Repo as ConsoleFileRepository
+    end
+    
+    participant Console
+    
+    box rgb(220, 255, 220) Server Side
+        participant Server
+    end
+
+    User->>Main: Start client application
+    Main->>Repo: new ConsoleFileRepository()
+    Main->>UseCase: new SendFileUseCase(filePort, "message")
+    Main->>ClientAdapter: new TCPClientAdapter(HOST, PORT, useCase)
+    Main->>ClientAdapter: start()
+
+    ClientAdapter->>Console: Print "Connecting to localhost:1234"
+    ClientAdapter->>Network: new Socket(host, port)
+    Network-->>ClientAdapter: Return connected socket
+    ClientAdapter->>Console: Print "Connected to server"
+
+    ClientAdapter->>UseCase: execute()
+    UseCase->>Repo: getFileFromSrc("message")
+    Repo->>Console: Print "Enter content for 'message': "
+    Console->>User: Display prompt
+    User->>Console: Type message and press Enter
+    Console-->>Repo: Return input string
+    Repo->>Repo: Create File entity
+    Repo-->>UseCase: Return File
+    UseCase->>UseCase: Extract content
+    UseCase-->>ClientAdapter: Return content string
+
+    ClientAdapter->>Network: write(data)
+    ClientAdapter->>Network: newLine()
+    ClientAdapter->>Network: flush()
+    Network->>Server: Send data packet
+    ClientAdapter->>Console: Print "Sent: [data]"
+
+    ClientAdapter->>Network: Close socket
+    ClientAdapter->>Console: Print "Connection closed"
+    ClientAdapter-->>Main: Return
+    Main-->>User: Exit application
+

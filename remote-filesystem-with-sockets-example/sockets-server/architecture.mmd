@@ -1,0 +1,66 @@
+---
+config:
+  layout: elk
+title: Sockets Server - Architecture Diagram
+---
+classDiagram
+direction TB
+  class SocketsServer {
+	        -int PORT
+	        +main(String[] args) void
+        }
+	namespace Middleware {
+        class ServerPort {
+	        #int port
+	        #UseCase useCase
+	        #ServerPort(int port, UseCase useCase)
+	        +start() void*
+        }
+        class UseCase {
+	        +execute(String data) void
+        }
+        class TCPServerAdapter {
+	        -ServerSocket serverSocket
+	        +TCPServerAdapter(int port, UseCase useCase)
+	        +start() void
+	        -receiveDataAndExecuteUseCase(Socket dataSocket) void
+        }
+        class UDPServerAdapter {
+	        -DatagramSocket socket
+	        -int BUFFER_SIZE
+	        +UDPServerAdapter(int port, UseCase useCase)
+	        +start() void
+        }
+	}
+	namespace App {
+        class File {
+	        -String content
+	        +File(String content)
+	        +getContent() String
+        }
+        class FilePort {
+	        +saveFileToSrc(File file, String src) void
+        }
+        class SaveFileUseCase {
+	        -FilePort filePort
+	        +SaveFileUseCase(FilePort filePort)
+	        +execute(String content) void
+        }
+        class MockFileRepository {
+	        +saveFileToSrc(File file, String src) void
+        }
+	}
+	<<abstract>> ServerPort
+	<<interface>> UseCase
+	<<interface>> FilePort
+    SocketsServer ..> ServerPort : uses
+    SocketsServer ..> SaveFileUseCase : creates
+    SocketsServer ..> MockFileRepository : creates
+    ServerPort <|-- TCPServerAdapter : extends
+    ServerPort <|-- UDPServerAdapter : extends
+    ServerPort o-- UseCase : uses
+    UseCase <|.. SaveFileUseCase : implements
+    SaveFileUseCase ..> File : creates
+    SaveFileUseCase o-- FilePort : uses
+    FilePort <|.. MockFileRepository : implements
+    MockFileRepository ..> File : uses

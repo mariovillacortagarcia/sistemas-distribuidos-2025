@@ -1,0 +1,67 @@
+---
+config:
+  layout: elk
+title: Sockets Client - Architecture Diagram
+---
+classDiagram
+direction TB
+  class SocketsClient {
+	        -String HOST
+	        -int PORT
+	        +main(String[] args) void
+        }
+	namespace Middleware {
+        class ClientPort {
+	        #String host
+	        #int port
+	        #UseCase useCase
+	        #ClientPort(String host, int port, UseCase useCase)
+	        +start() void*
+        }
+        class UseCase {
+	        +execute() String
+        }
+        class TCPClientAdapter {
+	        +TCPClientAdapter(String host, int port, UseCase useCase)
+	        +start() void
+        }
+        class UDPClientAdapter {
+	        +UDPClientAdapter(String host, int port, UseCase useCase)
+	        +start() void
+        }
+	}
+	namespace App {
+        class File {
+	        -String content
+	        +File(String content)
+	        +getContent() String
+        }
+        class FilePort {
+	        +getFileFromSrc(String src) File
+        }
+        class SendFileUseCase {
+	        -FilePort filePort
+	        -String src
+	        +SendFileUseCase(FilePort filePort, String src)
+	        +execute() String
+        }
+        class ConsoleFileRepository {
+	        -Scanner scanner
+	        +ConsoleFileRepository()
+	        +getFileFromSrc(String src) File
+        }
+	}
+	<<abstract>> ClientPort
+	<<interface>> UseCase
+	<<interface>> FilePort
+    SocketsClient ..> ClientPort : uses
+    SocketsClient ..> SendFileUseCase : creates
+    SocketsClient ..> ConsoleFileRepository : creates
+    ClientPort <|-- TCPClientAdapter : extends
+    ClientPort <|-- UDPClientAdapter : extends
+    ClientPort o-- UseCase : uses
+    UseCase <|.. SendFileUseCase : implements
+    SendFileUseCase o-- FilePort : uses
+    SendFileUseCase ..> File : uses
+    FilePort <|.. ConsoleFileRepository : implements
+    ConsoleFileRepository ..> File : creates

@@ -1,0 +1,55 @@
+---
+config:
+  theme: default
+title: Sockets Server - Execution Flow
+---
+
+sequenceDiagram
+    autonumber
+    actor Admin
+    participant Main as SocketsServer
+    
+    box rgb(220, 240, 255) Middleware Layer
+        participant ServerAdapter as TCPServerAdapter
+        participant Socket as ServerSocket
+    end
+    
+    box rgb(255, 245, 220) App Layer - Application
+        participant UseCase as SaveFileUseCase
+    end
+    
+    box rgb(255, 235, 220) App Layer - Infrastructure
+        participant Repo as MockFileRepository
+    end
+    
+    participant Console
+
+    Admin->>Main: Start server application
+    Main->>Repo: new MockFileRepository()
+    Main->>UseCase: new SaveFileUseCase(filePort)
+    Main->>ServerAdapter: new TCPServerAdapter(PORT, useCase)
+    ServerAdapter->>Socket: new ServerSocket(port)
+    Main->>ServerAdapter: start()
+
+    ServerAdapter->>Console: Print "Server listening on port 1234"
+    
+    loop Wait for clients
+        ServerAdapter->>Socket: accept()
+        Note over ServerAdapter,Socket: Blocking call until client connects
+        Socket-->>ServerAdapter: Return data socket
+        ServerAdapter->>Console: Print connection info
+        
+        loop Read data from client
+            ServerAdapter->>Socket: readLine()
+            Socket-->>ServerAdapter: Return data string
+            ServerAdapter->>Console: Print received data
+            ServerAdapter->>UseCase: execute(data)
+            UseCase->>UseCase: Create File entity
+            UseCase->>Repo: saveFileToSrc(file, "data")
+            Repo->>Console: Print file content
+        end
+        
+        Note over Socket: Client closes connection
+        ServerAdapter->>Socket: Close data socket
+    end
+

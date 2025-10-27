@@ -1,0 +1,12 @@
+# Artefactos NetBeans que no quiero subir
+build/
+dist/
+nbproject/private/
+
+# Compilados Java
+*.class
+*.log
+
+# Ruido del sistema operativo
+.DS_Store
+Thumbs.db
