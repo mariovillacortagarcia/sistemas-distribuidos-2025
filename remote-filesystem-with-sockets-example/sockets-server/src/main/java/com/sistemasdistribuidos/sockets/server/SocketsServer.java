@@ -13,14 +13,14 @@ import java.io.IOException;
 
 /**
  * Main application for the socket server.
- * 
- * This class configures and starts a socket-based server (TCP or UDP)
- * that receives data from clients and processes it through defined use cases.
- * 
- * The architecture implements the Ports and Adapters pattern (Hexagonal Architecture):
- * - App Layer: Contains business logic (use cases and domain)
- * - Middleware Layer: Handles socket communication
- * 
+ *
+ * This class configures and starts a socket-based server (TCP or UDP) that
+ * receives data from clients and processes it through defined use cases.
+ *
+ * The architecture implements the Ports and Adapters pattern (Hexagonal
+ * Architecture): - App Layer: Contains business logic (use cases and domain) -
+ * Middleware Layer: Handles socket communication
+ *
  * @author mariovillacortagarcia
  */
 public class SocketsServer {
@@ -32,13 +32,11 @@ public class SocketsServer {
 
     /**
      * Main method that starts the socket server.
-     * 
-     * Configures dependencies through manual injection:
-     * 1. Creates a repository to persist files
-     * 2. Initializes the save file use case
-     * 3. Configures the server adapter (TCP or UDP)
-     * 4. Starts the server on the specified port
-     * 
+     *
+     * Configures dependencies through manual injection: 1. Creates a repository
+     * to persist files 2. Initializes the save file use case 3. Configures the
+     * server adapter (TCP or UDP) 4. Starts the server on the specified port
+     *
      * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {

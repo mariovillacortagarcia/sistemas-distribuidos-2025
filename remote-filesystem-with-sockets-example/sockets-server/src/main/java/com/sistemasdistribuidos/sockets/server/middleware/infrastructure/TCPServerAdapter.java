@@ -90,19 +90,24 @@ public class TCPServerAdapter extends ServerPort {
      * @param dataSocket The socket connected to the client
      */
     private void receiveDataAndExecuteUseCase(Socket dataSocket) {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
+        try (Socket socket = dataSocket;
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+            
             String data;
             while ((data = in.readLine()) != null) {
                 System.out.printf(
                         "[TCP] %s:%d -> %s%n",
-                        dataSocket.getInetAddress().getHostAddress(),
-                        dataSocket.getPort(),
+                        socket.getInetAddress().getHostAddress(),
+                        socket.getPort(),
                         data
                 );
 
                 useCase.execute(data);
             }
+            
+            System.out.printf("[TCP] Client %s:%d disconnected%n", 
+                    socket.getInetAddress().getHostAddress(), 
+                    socket.getPort());
 
         } catch (IOException e) {
             System.err.println("[TCP] Error reading from client: " + e.getMessage());

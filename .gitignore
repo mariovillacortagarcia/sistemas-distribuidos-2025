@@ -10,3 +10,5 @@ nbproject/private/
 # Ruido del sistema operativo
 .DS_Store
 Thumbs.db
+/remote-filesystem-with-sockets-example/sockets-client/target/
+/remote-filesystem-with-sockets-example/sockets-server/target/
