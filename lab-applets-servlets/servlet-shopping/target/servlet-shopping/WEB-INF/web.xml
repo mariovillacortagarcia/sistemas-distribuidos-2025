@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	 version="3.0">
+    
+    <display-name>Servlet Shopping Application</display-name>
+    <description>Shopping application with Users and Shopping Carts management</description>
+    
+    <!-- User Servlet Configuration -->
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>com.sistemasdistribuidos.servlet.shopping.middleware.UserServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/Users</url-pattern>
+        <url-pattern>/Users/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Shopping Cart Servlet Configuration -->
+    <servlet>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <servlet-class>com.sistemasdistribuidos.servlet.shopping.middleware.ShoppingCartServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <url-pattern>/ShoppingCarts</url-pattern>
+        <url-pattern>/ShoppingCarts/*</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+</web-app>

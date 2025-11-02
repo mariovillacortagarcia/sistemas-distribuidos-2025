@@ -1,0 +1,10 @@
+com/sistemasdistribuidos/servlet/shopping/middleware/UserServlet.class
+com/sistemasdistribuidos/servlet/shopping/application/common/JsonUtils.class
+com/sistemasdistribuidos/servlet/shopping/application/product/Product.class
+com/sistemasdistribuidos/servlet/shopping/middleware/ShoppingCartServlet.class
+com/sistemasdistribuidos/servlet/shopping/application/user/UserRepository.class
+com/sistemasdistribuidos/servlet/shopping/application/cart/ShoppingCart.class
+com/sistemasdistribuidos/servlet/shopping/application/cart/ShoppingCartRepository.class
+com/sistemasdistribuidos/servlet/shopping/application/common/JsonSerializable.class
+com/sistemasdistribuidos/servlet/shopping/application/common/RandomIdGenerator.class
+com/sistemasdistribuidos/servlet/shopping/application/user/User.class

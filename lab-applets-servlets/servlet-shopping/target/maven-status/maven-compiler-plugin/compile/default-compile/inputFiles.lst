@@ -1,0 +1,10 @@
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/user/UserRepository.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/cart/ShoppingCartRepository.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/middleware/UserServlet.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/product/Product.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/common/JsonUtils.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/common/RandomIdGenerator.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/user/User.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/cart/ShoppingCart.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/middleware/ShoppingCartServlet.java
+/Users/mariovillacortagarcia/sistemas-distribuidos-2025/lab-applets-servlets/servlet-shopping/src/main/java/com/sistemasdistribuidos/servlet/shopping/application/common/JsonSerializable.java
