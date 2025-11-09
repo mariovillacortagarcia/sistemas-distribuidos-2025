@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -36,7 +35,6 @@ public class ThreadImageProcessing {
     public static void main(String[] args) {
         try {
             BufferedImage image = loadImage();
-            System.out.println("Image loaded from " + INPUT_PATH);
             processImageWithThreads(image);
             saveImage(image);
 
@@ -53,7 +51,7 @@ public class ThreadImageProcessing {
      * Loads an image from the file system.
      *
      * @return the loaded image
-     * @throws IOException              if an error occurs while reading the file
+     * @throws IOException if an error occurs while reading the file
      * @throws IllegalArgumentException if the image could not be loaded
      */
     private static BufferedImage loadImage() throws IOException {
@@ -61,6 +59,8 @@ public class ThreadImageProcessing {
         if (image == null) {
             throw new IllegalArgumentException("Could not load image from " + INPUT_PATH);
         }
+        System.out.println("Image loaded from " + INPUT_PATH);
+
         return image;
     }
 
