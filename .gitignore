@@ -14,3 +14,7 @@ Thumbs.db
 /remote-filesystem-with-sockets-example/sockets-server/target/
 /lab-applets-servlets/html-response-servlet-shopping/target/
 /thread-image-processing/target/
+
+# Imágenes grandes
+thread-image-processing/input/*.jpg
+thread-image-processing/output/*.jpg
