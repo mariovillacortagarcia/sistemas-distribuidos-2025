@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -23,11 +24,11 @@ public class ThreadImageProcessing {
     /**
      * The path to the input image.
      */
-    private static final String INPUT_PATH = "input/Christ_Carrying_the_Cross,_ca._1505-07.jpg";
+    private static final String INPUT_PATH = "input/Crucifixion_with_a_Donor,_ca._1480-85.jpg";
     /**
      * The path to the output image.
      */
-    private static final String OUTPUT_PATH = "output/grayscale_Christ_Carrying_the_Cross,_ca._1505-07.jpg";
+    private static final String OUTPUT_PATH = "output/grayscale_Crucifixion_with_a_Donor,_ca._1480-85.jpg";
 
     /**
      * Main entry point of the application.
@@ -52,7 +53,7 @@ public class ThreadImageProcessing {
      * Loads an image from the file system.
      *
      * @return the loaded image
-     * @throws IOException if an error occurs while reading the file
+     * @throws IOException              if an error occurs while reading the file
      * @throws IllegalArgumentException if the image could not be loaded
      */
     private static BufferedImage loadImage() throws IOException {
