@@ -24,11 +24,11 @@ public class ThreadImageProcessing {
     /**
      * The path to the input image.
      */
-    private static final String INPUT_PATH = "input/Crucifixion_with_a_Donor,_ca._1480-85.jpg";
+    private static final String INPUT_PATH = "input/Christ_Carrying_the_Cross,_ca._1505-07.jpg";
     /**
      * The path to the output image.
      */
-    private static final String OUTPUT_PATH = "output/grayscale_Crucifixion_with_a_Donor,_ca._1480-85.jpg";
+    private static final String OUTPUT_PATH = "output/grayscale_Christ_Carrying_the_Cross,_ca._1505-07.jpg";
 
     /**
      * Main entry point of the application.
