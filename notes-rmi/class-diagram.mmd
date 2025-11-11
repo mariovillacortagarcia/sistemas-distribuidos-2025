@@ -1,0 +1,93 @@
+---
+config:
+  layout: elk
+---
+classDiagram
+    %% ===== Namespaces =====
+    namespace application {
+        class Note {
+            -String id
+            -String text
+            +Note(String text)
+            +getId() String
+            +getText() String
+            +setText(String text)
+            +toJson() String
+        }
+        class JsonSerializable {
+            <<interface>>
+            +toJson() String
+        }
+        class JsonUtils {
+            <<utility>>
+            +toJson(JsonSerializable) String$
+            +toJsonArray(JsonSerializable[]) String$
+            +escapeJson(String) String$
+        }
+        class RandomIdGenerator {
+            <<utility>>
+            -int LENGTH
+            +generate() String$
+            -getRandomChar() char$
+        }
+        class NotePort {
+            <<interface>>
+            <<RMI Remote>>
+            +getNotes() Note[]*
+            +getNoteById(String) Note*
+            +createNote(String) Note*
+            +updateNote(Note) Note*
+            +deleteNoteById(String)*
+        }
+        class Remote {
+            <<interface>>
+            <<java.rmi>>
+        }
+        class UnicastRemoteObject {
+            <<java.rmi.server>>
+        }
+    }
+
+    namespace server {
+        class NoteRepository {
+            -List~Note~ notes
+            +NoteRepository()*
+            +getNotes() Note[]*
+            +getNoteById(String) Note*
+            +createNote(String) Note*
+            +updateNote(Note) Note*
+            +deleteNoteById(String)*
+        }
+        class NoteRmiServer {
+            -String SERVICE_NAME
+            -int REGISTRY_PORT
+            +main(String[]) void$
+        }
+    }
+
+    namespace client {
+        class NoteRmiClient {
+            -String SERVICE_NAME
+            -String HOST
+            -int REGISTRY_PORT
+            +main(String[]) void$
+        }
+    }
+
+    %% ===== Relaciones =====
+    Note ..|> JsonSerializable : implements
+    Note --> JsonUtils : uses
+    Note --> RandomIdGenerator : uses
+
+    NotePort ..|> Remote : extends
+
+    NoteRepository --|> UnicastRemoteObject : extends
+    NoteRepository ..|> NotePort : implements
+    NoteRepository --> Note : manages
+
+    NoteRmiServer --> NotePort : uses
+    NoteRmiServer --> NoteRepository : creates
+
+    NoteRmiClient --> NotePort : uses
+    NoteRmiClient --> Note : uses
+    NoteRmiClient --> JsonUtils : uses
